@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace PierreJustCannotHelpHimself.Models
 {
-  public class PierreJustCannotHelpHimselfContext : DbContext
+  public class PierreJustCannotHelpHimselfContext: IdentityDbContext <ApplicationUser>
   {
-    public virtual DbSet<Treat> Treats { get; set; }
+    public DbSet<Treat> Treats { get; set; }
     public DbSet<Flavor> Flavors { get; set; }
     public DbSet<TreatFlavor> TreatFlavor { get; set; }
 

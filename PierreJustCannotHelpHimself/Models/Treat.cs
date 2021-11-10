@@ -12,6 +12,7 @@ namespace PierreJustCannotHelpHimself.Models
     public int TreatId { get; set; }
     [Required(ErrorMessage = "Name is required.")]
     public string Name { get; set; }
+    public virtual ApplicationUser User { get; set; }
     public virtual ICollection<TreatFlavor> JoinEntities { get; set; }
   }
 }
