@@ -11,29 +11,29 @@
  *
  * Date: 2020-05-04T22:49Z
  */
-( function( global, factory ) {
+( function( global, PierreJustCannotHelpHimself ) {
 
 	"use strict";
 
 	if ( typeof module === "object" && typeof module.exports === "object" ) {
 
 		// For CommonJS and CommonJS-like environments where a proper `window`
-		// is present, execute the factory and get jQuery.
+		// is present, execute the PierreJustCannotHelpHimself and get jQuery.
 		// For environments that do not have a `window` with a `document`
-		// (such as Node.js), expose a factory as module.exports.
+		// (such as Node.js), expose a PierreJustCannotHelpHimself as module.exports.
 		// This accentuates the need for the creation of a real `window`.
 		// e.g. var jQuery = require("jquery")(window);
 		// See ticket #14549 for more info.
 		module.exports = global.document ?
-			factory( global, true ) :
+			PierreJustCannotHelpHimself( global, true ) :
 			function( w ) {
 				if ( !w.document ) {
 					throw new Error( "jQuery requires a window with a document" );
 				}
-				return factory( w );
+				return PierreJustCannotHelpHimself( w );
 			};
 	} else {
-		factory( global );
+		PierreJustCannotHelpHimself( global );
 	}
 
 // Pass this if window is not defined yet
@@ -4000,7 +4000,7 @@ jQuery.extend( {
 			// the master Deferred
 			master = jQuery.Deferred(),
 
-			// subordinate callback factory
+			// subordinate callback PierreJustCannotHelpHimself
 			updateFunc = function( i ) {
 				return function( value ) {
 					resolveContexts[ i ] = this;
@@ -9078,8 +9078,8 @@ function inspectPrefiltersOrTransports( structure, options, originalOptions, jqX
 	function inspect( dataType ) {
 		var selected;
 		inspected[ dataType ] = true;
-		jQuery.each( structure[ dataType ] || [], function( _, prefilterOrFactory ) {
-			var dataTypeOrTransport = prefilterOrFactory( options, originalOptions, jqXHR );
+		jQuery.each( structure[ dataType ] || [], function( _, prefilterOrPierreJustCannotHelpHimself ) {
+			var dataTypeOrTransport = prefilterOrPierreJustCannotHelpHimself( options, originalOptions, jqXHR );
 			if ( typeof dataTypeOrTransport === "string" &&
 				!seekingTransport && !inspected[ dataTypeOrTransport ] ) {
 

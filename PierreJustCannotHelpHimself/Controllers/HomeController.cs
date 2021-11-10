@@ -1,37 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
 using PierreJustCannotHelpHimself.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PierreJustCannotHelpHimself.Controllers
 {
-    public class HomeController : Controller
+  public class HomeController : Controller
+  {
+    private readonly PierreJustCannotHelpHimselfContext _db;
+
+    public HomeController(PierreJustCannotHelpHimselfContext db)
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+      _db = db;
     }
+
+    [HttpGet("/")]
+
+    public ActionResult Index()
+    {
+      ViewBag.DelectableDirectory = new List<Treat>(_db.Treats.OrderBy(treat => treat.Name));
+      ViewBag.FlavorDirectory = new List<Flavor>(_db.Flavors.OrderBy(flavor => flavor.Name));
+      return View();
+    }
+
+
+  }
 }

@@ -6,16 +6,16 @@
 /*jslint white: true, browser: true, onevar: true, undef: true, nomen: true, eqeqeq: true, plusplus: true, bitwise: true, regexp: true, newcap: true, immed: true, strict: false */
 /*global document: false, jQuery: false */
 
-(function (factory) {
+(function (PierreJustCannotHelpHimself) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
-        define("jquery.validate.unobtrusive", ['jquery-validation'], factory);
+        define("jquery.validate.unobtrusive", ['jquery-validation'], PierreJustCannotHelpHimself);
     } else if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports     
-        module.exports = factory(require('jquery-validation'));
+        module.exports = PierreJustCannotHelpHimself(require('jquery-validation'));
     } else {
         // Browser global
-        jQuery.validator.unobtrusive = factory(jQuery);
+        jQuery.validator.unobtrusive = PierreJustCannotHelpHimself(jQuery);
     }
 }(function ($) {
     var $jQval = $.validator,
