@@ -58,7 +58,7 @@ This Epicodus project creates a C# MVC web app (for an exhausted fictional baker
 3. In this file add the following: 
 ``{
   "ConnectionStrings": {
-      "DefaultConnection": "Server=localhost;Port=3306;database=[firstname_lastname];uid=root;pwd=[YOUR PASSWORD HERE & DELETE THESE SQUARE BRACKETS!];"
+      "DefaultConnection": "Server=localhost;Port=3306;database=pierre;uid=root;pwd=[YOUR PASSWORD HERE & DELETE THESE SQUARE BRACKETS!];"
   }
 }``
 
@@ -92,7 +92,7 @@ This Epicodus project creates a C# MVC web app (for an exhausted fictional baker
 8. Select `Import from Self-Contained File`
 9. Navigate to `Pierre.Solution` folder and select `tim_roth.sql`
 10. With the `Default Schema to be Imported To` dropdown menu, select `New`
-11. Name your new schema `firstname_lastname` and click `ok`
+11. Name your new schema `pierre` and click `ok`
 12. Click `Start Import` at bottom right of navigator window
 
 ## Known Bugs
