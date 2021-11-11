@@ -3,19 +3,19 @@
 }
 
 @model PierreJustCannotHelpHimself.Models.Treat
-
-<h1>Treat Details</h1>
+<div class="container">
+<h2>Treat Details</h2>
 <hr />
-<h2>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)<h2>
+<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
 <ul>
 
 @if (@Model.JoinEntities.Count == 0)
 {
-  <h3>No flavors have been magicked with this treat yet!</h3>
+  <p>No flavors have been magicked with this treat yet!</p>
 } 
 else
 {
-  <h3><i>This treat's flavors include</i></h3>
+  <h4><i>This treat's flavors include</i></h4>
   <ul>
   @foreach (var join in Model.JoinEntities)
   {
@@ -34,3 +34,4 @@ else
 <p>@Html.ActionLink("Edit Treat", "Edit", new { id = Model.TreatId })</p>
 <p>@Html.ActionLink("Delete Treat", "Delete", new { id = Model.TreatId })</p>
 <p>@Html.ActionLink("Back to Treats", "Index")</p>
+</div>
