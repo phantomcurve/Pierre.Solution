@@ -12,7 +12,7 @@ namespace PierreJustCannotHelpHimself.Controllers
         private readonly UserManager <ApplicationUser> _userManager;
         private readonly SignInManager <ApplicationUser> _signInManager;
 
-        public AccountController(UserManager <ApplicationUser> userManager, SignInManager <ApplicationUser> signInManager, PierreJustCannotHelpHimselfContext db)
+       public AccountController (UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, PierreJustCannotHelpHimselfContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -30,24 +30,16 @@ namespace PierreJustCannotHelpHimself.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register (RegisterViewModel model)
         {
-            var user = new ApplicationUser { Email = model.Email };
-            if (model.Password == model.ConfirmPassword)
+            var user = new ApplicationUser { UserName = model.Email };
+            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
             {
-                IdentityResult result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return View();
-                }
+                return RedirectToAction("Index");
             }
             else
             {
-                ViewBag.PasswordNotMatch = "Your passwords didn't match! Try again!";
                 return View();
             }
         }
@@ -56,11 +48,11 @@ namespace PierreJustCannotHelpHimself.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task<ActionResult> Login(LoginViewModel model)
         {
-            Microsoft.AspNetCore.Identity.SignInResult result = await
-            _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
+            Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
             if (result.Succeeded)
             {
                 return RedirectToAction("Index");

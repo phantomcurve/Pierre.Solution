@@ -11,7 +11,6 @@ using System.Security.Claims;
 
 namespace PierreJustCannotHelpHimself.Controllers
 {
-  [Authorize]
   public class FlavorsController : Controller
   {
     private readonly PierreJustCannotHelpHimselfContext _db;
@@ -23,14 +22,15 @@ namespace PierreJustCannotHelpHimself.Controllers
          _db = db;
      }
     
-    public async Task<ActionResult> Index()
+    public ActionResult Index()
     {
-      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var currentUser = await _userManager.FindByIdAsync(userId);
+      // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      // var currentUser = await _userManager.FindByIdAsync(userId);
       IEnumerable<Flavor> sortedFlavors = _db.Flavors.OrderBy(flavor => flavor.Name);
       return View(sortedFlavors.ToList());
     }
 
+    [Authorize]
     public ActionResult Create()
     {
       ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
@@ -38,6 +38,8 @@ namespace PierreJustCannotHelpHimself.Controllers
     }
 
     [HttpPost]
+
+    [Authorize]
     public async Task<ActionResult> Create(Flavor flavor, int TreatId)
     {
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -53,10 +55,10 @@ namespace PierreJustCannotHelpHimself.Controllers
       return RedirectToAction("Index");
     }
 
-    public async Task<ActionResult> Details(int id)
+    public ActionResult Details(int id)
     {
-      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var currentUser = await _userManager.FindByIdAsync(userId);
+      // var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      // var currentUser = await _userManager.FindByIdAsync(userId);
       var thisFlavor = _db.Flavors
         .Include(flavor => flavor.JoinEntities)
         .ThenInclude(join => join.Flavor)
@@ -68,9 +70,10 @@ namespace PierreJustCannotHelpHimself.Controllers
       else
       {
           return RedirectToAction("Login", "Account");
-      }
-}
+      } 
+    }
 
+    [Authorize]
       public async Task<ActionResult> Edit(int id)
     {
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -88,6 +91,8 @@ namespace PierreJustCannotHelpHimself.Controllers
     }
 
     [HttpPost]
+
+    [Authorize]
     public ActionResult Edit (Flavor flavor, int TreatId)
     {
       if (TreatId != 0)
@@ -98,6 +103,8 @@ namespace PierreJustCannotHelpHimself.Controllers
       _db.SaveChanges();
       return RedirectToAction("Details", new {id = flavor.FlavorId });
     }
+
+    [Authorize]
     public ActionResult AddTreat(int id)
     {
         var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
@@ -106,6 +113,8 @@ namespace PierreJustCannotHelpHimself.Controllers
     }
 
     [HttpPost]
+
+    [Authorize]
     public ActionResult AddTreat(Flavor flavor, int TreatId)
     {
       if (TreatId != 0)
@@ -117,6 +126,7 @@ namespace PierreJustCannotHelpHimself.Controllers
       return RedirectToAction("Details", new { id = flavor.FlavorId });
     }
 
+    [Authorize]  
     public async Task<ActionResult> Delete(int id)
     {
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -133,6 +143,7 @@ namespace PierreJustCannotHelpHimself.Controllers
     }
 
     [HttpPost, ActionName("Delete")]
+    [Authorize]
     public ActionResult DeleteConfirmed(int id)
     {
       var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
@@ -141,6 +152,7 @@ namespace PierreJustCannotHelpHimself.Controllers
       return RedirectToAction("Index");
     }
     [HttpPost]
+    [Authorize]
     public ActionResult DeleteTreat(int joinId)
     {
       var joinEntry = _db.TreatFlavor.FirstOrDefault(entry => entry.TreatFlavorId == joinId);

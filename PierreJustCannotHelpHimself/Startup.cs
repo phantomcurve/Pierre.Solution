@@ -14,8 +14,8 @@ namespace PierreJustCannotHelpHimself
     public Startup(IWebHostEnvironment env)
     {
       var builder = new ConfigurationBuilder()
-          .SetBasePath(env.ContentRootPath)
-          .AddJsonFile("appsettings.json");
+        .SetBasePath(env.ContentRootPath)
+        .AddJsonFile("appsettings.json");
       Configuration = builder.Build();
     }
 
@@ -28,28 +28,31 @@ namespace PierreJustCannotHelpHimself
       services.AddEntityFrameworkMySql()
         .AddDbContext<PierreJustCannotHelpHimselfContext>(options => options
         .UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
-      
-       services.AddIdentity<ApplicationUser, IdentityRole>()
+        
+      services.AddIdentity<ApplicationUser, IdentityRole>()
         .AddEntityFrameworkStores<PierreJustCannotHelpHimselfContext>()
         .AddDefaultTokenProviders();
 
-        services.Configure<IdentityOptions>(options =>
-            {
-              options.Password.RequireDigit = false;
-              options.Password.RequiredLength = 0;
-              options.Password.RequireLowercase = false;
-              options.Password.RequireNonAlphanumeric = false;
-              options.Password.RequireUppercase = false;
-              options.Password.RequiredUniqueChars = 0;
-            });
+      services.Configure<IdentityOptions>(options =>
+      {
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 0;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequiredUniqueChars = 0;
+      });
     }
 
     public void Configure(IApplicationBuilder app)
     {
-      app.UseStaticFiles();
       app.UseDeveloperExceptionPage();
-      app.UseAuthentication();
+
+      app.UseAuthentication(); 
+
       app.UseRouting();
+
+      app.UseAuthorization();
 
       app.UseEndpoints(routes =>
       {
@@ -60,7 +63,7 @@ namespace PierreJustCannotHelpHimself
       
       app.Run(async (context) =>
       {
-        await context.Response.WriteAsync("there has been a glitch in the matrix!");
+        await context.Response.WriteAsync("Hello World!");
       });
     }
   }

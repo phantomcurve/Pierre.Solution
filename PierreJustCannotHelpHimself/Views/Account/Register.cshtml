@@ -10,19 +10,13 @@
 <hr />
 @using (Html.BeginForm("Register", "Account", FormMethod.Post))
 {
-    <label for="Email">Email:</label>
+    @Html.LabelFor(user => user.Email)
     @Html.TextBoxFor(user=> user.Email)
 
-    <label for="Role">Role:</label>
-    <select name="Role" id="Role">
-    <option value="Employee">Employee</option>
-    <option value="Customer">Customer</option>
-  </select>
-
-    <label for="Password">Password:</label>
+    @Html.LabelFor(user=> user.Password)
     @Html.PasswordFor(user=> user.Password)
 
-    <label for="ConfirmPassword">Confirm:</label>
+    @Html.LabelFor(user=> user.ConfirmPassword)
     @Html.PasswordFor(user=> user.ConfirmPassword)
 
     <input type="submit" value="Register" />
