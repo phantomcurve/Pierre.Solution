@@ -5,7 +5,7 @@
 @using PierreJustCannotHelpHimself.ViewModels
 
 @model RegisterViewModel
-
+<div class="container">
 <h2>Register a new user</h2>
 <hr />
 @using (Html.BeginForm("Register", "Account", FormMethod.Post))
@@ -19,5 +19,6 @@
     @Html.LabelFor(user=> user.ConfirmPassword)
     @Html.PasswordFor(user=> user.ConfirmPassword)
 
-    <input type="submit" value="Register" />
+    <input type="submit" value="Register" class="btn"/>
 }
+</div>
